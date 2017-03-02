@@ -11,6 +11,8 @@ server(Port) :-
 % Here our path is / (the root) and the goal we'll query will be
 % say_hi. The third argument is for options
 :- http_handler(/, say_hi, []).
+:- http_handler('/friends', hello(friends), []).
+:- http_handler('/ladies', hello(ladies), []).
 
 /* The implementation of /. The single argument provides the request
 details, which we ignore for now. Our task is to write a CGI-Document:
@@ -23,3 +25,11 @@ format-family is the most useful. See format/2.   */
 say_hi(_Request) :-
         format('Content-type: text/plain~n~n'),
         format('Hello World!~n').
+
+hello(ladies, _Request) :-
+        format('Content-type: text/plain~n~n'),
+        format('Hellooooooo ladies!!~n').
+    
+hello(friends, _Request) :-
+        format('Content-type: text/plain~n~n'),
+        format('Hello, friends.~n').
